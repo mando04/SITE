@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if Post %}
+{% for p in Post %}
+	<ul style="list-style-type: none;">
+		<li>Post by: {{ p.author }}</li>
+		<li>Title: {{ p.title }}</li>
+		<li>Content: {{ p.content }}</li>
+		<li><a href="/post/destroy/{{ p.id }}">Destroy</a> | <a href="/post/modify/{{ p.id }}">modify</a>
+	</ul>	
+{% endfor %}
+{% else %}
+<h1>No posts!</h1>
+{% endif %}
+{% endblock content %}

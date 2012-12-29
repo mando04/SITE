@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block head %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+{% endblock head %}
+{% block content %}
+	{% if forms %}
+		<form action="/post/modify/{{ post.id }}/" method="POST" accept-charset="utf-8">{% csrf_token %}
+			<table>
+				{{ forms.as_table }}
+			</table>
+			<p><input type="submit" value="Continue &rarr;"></p>
+		</form>
+	{% else %}
+		<h1>No posts!</h1>
+	{% endif %}
+{% endblock content %}
