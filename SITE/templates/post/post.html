@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+	{% if ERROR %}
+	<div class="error">
+		<p>{{ ERROR }}</p>
+	</div>
+	{% else %}
+		<p>{{ TITLE }}</p>
+		{% if forms %}
+			<form action="/post/" method="POST" accept-charset="utf-8">{% csrf_token %}
+				<table>
+					{{ forms.as_table }}
+					<tr>
+						<th colspan="2">
+							<input type="submit" value="Modify &rarr;">
+						</th>
+					</tr>
+				</table>
+			</form>
+		{% else %}
+			<h1>{{ TITLE }}</h1>
+		{% endif %}
+	{% endif %}
+{% endblock content %}

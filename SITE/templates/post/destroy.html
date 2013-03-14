@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block head %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+{% endblock head %}
+{% block content %}
+	{% if ERROR %}
+	<div class="error">
+		<p>Error: {{ ERROR }}</p>
+	</div>
+	{% else %}
+	Destroy: {{ TITLE }}
+	<p>Are you sure you want to delete '<label>{{ post.title }}</label>', this cannot be undone....</p>
+	<ul>
+		<li>Title: {{ post.title }}</li>
+		<li>Content: {{ post.content }}</li>
+	</ul>
+		<form action="/post/destroy/{{ post.id }}/" method="POST" accept-charset="utf-8">{% csrf_token %}
+			<table>
+				<tr>
+					<th colspan="2">
+						<input type="submit" value="Destroy &rarr;">
+					</th>
+				</tr>
+			</table>
+		</form>
+	{% endif %}
+{% endblock content %}

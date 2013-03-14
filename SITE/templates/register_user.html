@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<center>
+<div class="register-user">
+		<p>{{ TITLE }}</p>
+		{% if ERROR %}
+			<p style="color: red;">{{ ERROR|safe }}</p>
+		{% endif %}
+	<form action="{% url RegisterNewUser %}" method="POST" accept-charset="utf-8">{% csrf_token %}
+	<table>
+		{% for f in forms %}
+		<tr>
+			<th>
+				{{ f.label_tag }}
+			</th>
+			<td {% if f.errors %}style="background-color: red;"{% endif %}>
+				{{ f }}
+			</td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<th colspan="2">
+				<input type="submit" value="Continue √">
+			</th>
+	</table>
+	</form>
+	</center>
+</div>
+{% endblock content %}

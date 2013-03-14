@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block head %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+{% endblock head %}
+{% block content %}
+	{% comment %}
+		We don't want to give an attacker any idea about the attempt for login in so
+		so we will just display standard invalid username/password message
+	{% endcomment %}
+	{% if forms %}
+	<CENTER>
+	<div class='Login-Form' style="position: relative; top: 150px;"><CENTER>
+		<p>{{ TITLE }}</p>
+		{% if ERROR %}
+		<div style="color: red;">
+			<p>Invalid username/password</p>
+		</div>
+		{% endif %}
+		<form action="{{ URL_LOGIN }}" method="POST" accept-charset="utf-8">{% csrf_token %}
+			<table>
+				{% for f in forms %}
+				<tr>
+					<th>
+						{{ f.label_tag }}
+					</th>
+					<td>
+						{{ f }}
+					</td>
+				<tr>
+				{% endfor %}
+					<th colspan="2">
+						<input type="submit" value="Login &rarr;">
+					</th>
+				</tr>
+			</table>
+		</form></CENTER>
+	</div>
+	</CENTER>
+	{% else %}
+		<h1>{{ TITLE }}</h1>
+	{% endif %}
+	<p></p>
+	<!-- 
+	<hr>
+	<h1>Debug info</h1>
+	<p>URL_LOGIN: {{ URL_LOGIN }}</p>
+	<p>LOGIN_URL: {{ LOGIN_URL }}</p>
+	<p>USER: {{ user }}</p>
+	<p>{{ forms.username.label_tag}}: {{forms.username}}</p>
+	<p>{{ forms.password.label_tag}}: {{forms.password}}</p>
+	-->
+{% endblock content %}
