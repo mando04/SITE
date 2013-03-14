@@ -22,6 +22,9 @@ DATABASES = {
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+		'OPTIONS': {
+			'timeout' : 20,
+		}
     }
 }
 print 'Done...\n'
@@ -78,8 +81,7 @@ STATICFILES_DIRS = (
 	'' + appDir + '/static',
 )
 print 'Static content directories are....'
-for i in STATICFILES_DIRS:
-	print i
+for i in STATICFILES_DIRS: print i
 print '\n'
 
 # List of finder classes that know how to find static files in
@@ -123,8 +125,10 @@ TEMPLATE_DIRS = (
 )
 
 print 'Template Directories are....'
-for i in TEMPLATE_DIRS:
-	print i
+
+for i in TEMPLATE_DIRS: print i
+
+
 print ''
 print 'enableling apps....'
 INSTALLED_APPS = (
@@ -139,8 +143,13 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 	'www',
+	'userprofiles',
 )
 print 'done...\n'
+
+# Set LOGIN_URL for use of @login_required decorator to redrect to your
+# login page as /login/?next=${LOGIN_URL}
+LOGIN_URL='/login/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

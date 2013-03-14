@@ -4,9 +4,14 @@
 {% for p in Post %}
 	<ul style="list-style-type: none;">
 		<li>Post by: {{ p.author }}</li>
-		<li>Title: {{ p.title }}</li>
-		<li>Content: {{ p.content }}</li>
-		<li><a href="/post/destroy/{{ p.id }}">Destroy</a> | <a href="/post/modify/{{ p.id }}">modify</a>
+		<li>Title: {{ p.title }} - {{ p.date }}</li>
+		<pre>{{ p.content }}</pre>
+		<li><small>comments: {{ p.comments_set.count }}</small></li>
+		{% ifequal user p.author %}<li><a href="/post/destroy/{{ p.id }}">Destroy</a> | <a href="/post/modify/{{ p.id }}">modify</a>
+		{% else %}
+			{% if user.is_superuser %}<li><a href="/post/destroy/{{ p.id }}">Destroy</a> | <a href="/post/modify/{{ p.id }}">modify</a>
+			{% endif %}
+		{% endifequal %}
 	</ul>	
 {% endfor %}
 {% else %}

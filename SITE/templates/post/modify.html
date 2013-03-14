@@ -3,14 +3,29 @@
 	<link rel="stylesheet" href="{{ STATIC_URL }}master.css" type="text/css" media="screen" title="no title" charset="utf-8">
 {% endblock head %}
 {% block content %}
-	{% if forms %}
-		<form action="/post/modify/{{ post.id }}/" method="POST" accept-charset="utf-8">{% csrf_token %}
-			<table>
-				{{ forms.as_table }}
-			</table>
-			<p><input type="submit" value="Continue &rarr;"></p>
-		</form>
+	{% if ERROR %}
+	<div class="error">
+		{{ ERROR }}
+	</div>
 	{% else %}
-		<h1>No posts!</h1>
+		{{ TITLE }}
+		<ul>
+			<li>Title: {{ post.title }}</li>
+			<li>Content: {{ post.content }}</li>
+		</ul>
+		{% if forms %}
+			<form action="/post/modify/{{ post.id }}/" method="POST" accept-charset="utf-8">{% csrf_token %}
+				<table>
+					{{ forms.as_table }}
+					<tr>
+						<th colspan="2">
+							<input type="submit" value="Modify &rarr;">
+						</th>
+					</tr>
+				</table>
+			</form>
+		{% else %}
+			<h1>{{ TITLE }}</h1>
+		{% endif %}
 	{% endif %}
 {% endblock content %}
