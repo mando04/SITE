@@ -2,6 +2,25 @@ body{
 	font: normal normal normal .8em verdana, sans-serif;
 	padding: 0px;
 }
+
+a:link {
+	color:#00000;
+}    /* unvisited link */
+
+a:visited {
+	color:#000000;
+} /* visited link */
+
+a:hover {
+	color:#666FFF;
+}   /* mouse over link */
+
+a:active {
+	color: white;
+	text-shadow: #DDD 5px 5px 2px;
+	background-color: #DDD;
+}  /* selected link */
+
 .container {
 	padding: 0px;
 	width: 100%;

@@ -6,8 +6,8 @@ class modifyPost(forms.Form):
     content = forms.CharField(widget=forms.Textarea(attrs={ 'cols' : 50, 'rows' : 5 }))
 
 class loginForms(forms.Form):
-	username = forms.CharField(label='Username', max_length=32)
-	password1 = forms.CharField(label='Password', widget=forms.PasswordInput(render_value=False))
+	username = forms.CharField(label='Username', max_length=32, widget=forms.TextInput(attrs={ 'placeholder' : 'Username'}))
+	password1 = forms.CharField(label='Password', widget=forms.PasswordInput(render_value=False, attrs={'placeholder' : 'Pasword'}))
 
 class regforms(forms.Form):
 	username = forms.CharField(label='Username', max_length=32)

@@ -1,21 +1,24 @@
 from django.shortcuts import render_to_response, RequestContext
 from www.models import Post
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from www.forms import modifyPost, loginForms, regforms
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate, logout
+import datetime
 
 def logActivity(request):
 	print "User %s hit '%s'"%(request.user, request.META['PATH_INFO'])
 	
 def home(request):
 	TITLE = "Welcome Home!"
+	date = datetime.datetime.now()
 	blog_p = Post.objects.all()
 	logActivity(request)
 	content = {
 	'TITLE': TITLE,
 	'Post': blog_p,
+	'date' : date
 	}
 	return render_to_response('home.html', content, context_instance=RequestContext(request))
 
@@ -60,20 +63,20 @@ def loginUser(request):
 					#raise Exception, 'Invalid login attempt for %s'%user['username']
 					print user.email + 'is locked out!'
 					msg = 1
-					return render_to_response('login.html', { 'TITLE' : TITLE, 'forms' : f, 'ERROR' : msg, 'URL_LOGIN' : URL_LOGIN  },
+					return render_to_response('login2.html', { 'TITLE' : TITLE, 'forms' : f, 'ERROR' : msg, 'URL_LOGIN' : URL_LOGIN  },
 												context_instance=RequestContext(request))
 			else:
 				""" Invalid Username """
 				msg = 1
-				return render_to_response('login.html', { 'TITLE' : TITLE, 'forms' : f, 'ERROR' : msg, 'URL_LOGIN' : URL_LOGIN },
+				return render_to_response('login2.html', { 'TITLE' : TITLE, 'forms' : f, 'ERROR' : msg, 'URL_LOGIN' : URL_LOGIN },
 											context_instance=RequestContext(request))
 		else:
 			""" Forms is not valid """
 			msg = 1
-			return render_to_response('login.html', { 'TITLE' : TITLE, 'forms' : f, 'ERROR' : msg, 'URL_LOGIN' : URL_LOGIN }, 
+			return render_to_response('login2.html', { 'TITLE' : TITLE, 'forms' : f, 'ERROR' : msg, 'URL_LOGIN' : URL_LOGIN }, 
 										context_instance=RequestContext(request))
 	forms = loginForms()
-	return render_to_response('login.html', { 'TITLE' : TITLE, 'forms' : forms, 'URL_LOGIN' : URL_LOGIN, 'request' : request }, context_instance=RequestContext(request))
+	return render_to_response('login2.html', { 'TITLE' : TITLE, 'forms' : forms, 'URL_LOGIN' : URL_LOGIN, 'request' : request }, context_instance=RequestContext(request))
 	
 @login_required
 def postModify(request, post):

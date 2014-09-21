@@ -11,21 +11,66 @@
 </head>
 
 <body>
-	<div class="container">
-		<div style="width: 100%; max-height: 32px">
-			<a href="{% url home %}">Home</a> | 
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Blog</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="{% url 'home' %}">Home</a></li>
 			{% if user.is_staff %}
-				<a href="{% url NewPost %}">Add a Post!</a> | 
+				<li><a href="{% url 'NewPost' %}">Add a Post!</a></li>
 			{% endif %}
-			{% if user.is_authenticated %} 
-				<a href="{% url logout %}">logout</a> | 
-				{{ user }}
-			{% else %}
-				<a href="{% url login %}">login</a>
-			{% endif %}
-		</div>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if user.is_authenticated %}{{ user }} {% else %}Welcome Guest{% endif %}<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header"-</li>
+					{% if user.is_authenticated %}
+   	                  	<li><a href="#">Account Settings</a></li> 
+						<li><a href="{% url 'logout' %}">logout</a></li>
+					{% else %}
+						<li><a href="{% url 'login' %}">login</a></li>
+					{% endif %}
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 		{% block content %}
 		{% endblock content %}
+		  	<div id="push"></div>
+		  	    <div id="footer">
+	      			<div class="container">
+	        			<p class="muted credit">Mando</p>
+	      			</div>
+	    		</div>
+	    	</div>
+	    <!-- Le javascript
+	    ================================================== -->
+	    <!-- Placed at the end of the document so the pages load faster -->
+	    <script src="{{ STATIC_URL }}js/jquery.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-transition.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-alert.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-modal.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-scrollspy.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-tab.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-tooltip.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-popover.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-button.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-collapse.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-carousel.js"></script>
+	    <script src="{{ STATIC_URL }}js/bootstrap-typeahead.js"></script>
 	</div>
 </body>
 </html>
